@@ -5,6 +5,7 @@ class Reader:
         self.path = path
         self.first_line = list()
         self.other_lines = list()
+        self.tag_dict = dict()
 
     def read(self):
         with open(self.path, "r+", encoding="utf-8") as f:
@@ -17,7 +18,7 @@ class Reader:
                         # print(str(match.g))
                         self.first_line.append(int(match.group(1)))
                 else:
-                    regex = r"(\S)"
+                    regex = r"(\S+)"
                     matches = re.finditer(regex, line.strip(), re.MULTILINE)
 
                     pom = list()
@@ -25,10 +26,13 @@ class Reader:
                         for groupNum in range(0, len(match.groups())):
                             groupNum = groupNum + 1
                             pom.append(match.group(groupNum))
-
                     self.other_lines.append(pom)
-            print(self.first_line)
-            print(self.other_lines)
+                    # for id in range(2, len(pom)):
+                    #     self.tag_dict[pom[id]].setdefault([], len(self.other_lines)).append(len(self.other_lines))
 
-r = Reader("a_example.in")
-r.read()
+
+            # print(self.first_line)
+            # print(self.other_lines)
+
+# r = Reader("a_example.txt")
+# r.read()
